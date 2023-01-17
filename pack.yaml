@@ -1,13 +1,12 @@
 ---
-ref: twitter
-name : twitter
-description : Monitor and send Tweets
+ref: xrm-ovirt
+name : xrm-ovirt
+description : XRM oVirt pack
 keywords:
-  - twitter
-  - social media
-  - social networks
+  - ovirt
+  - xrm
 version: 1.0.0
 python_versions:
   - "3"
-author : StackStorm, Inc.
-email : info@stackstorm.com
+author : XRM
+email : info@xrm.ru
