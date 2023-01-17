@@ -1,6 +1,6 @@
 ---
-ref: xrm-ovirt
-name : xrm-ovirt
+ref: xrm_ovirt
+name : xrm_ovirt
 description : XRM oVirt pack
 keywords:
   - ovirt
