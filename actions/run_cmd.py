@@ -13,5 +13,6 @@ __all__ = [
 
 class RunCmd(Action):
 
-    def run(self, status, media):
+    def run(self, cmd, media):
+        print cmd
         return True
