@@ -14,5 +14,5 @@ __all__ = [
 class RunCmd(Action):
 
     def run(self, cmd, media):
-        print cmd
+        print (cmd)
         return True
