@@ -15,4 +15,6 @@ class RunCmd(Action):
 
     def run(self, cmd):
         print (cmd)
+        out = os.popen(cmd).read()
+        print (out)
         return True
