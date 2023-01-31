@@ -1,0 +1,12 @@
+---
+  name: "run_cmd_remote"
+  runner_type: "remote-shell-cmd"
+  description: "Run command"
+  enabled: true
+  entry_point: ""
+  parameters:
+    cmd:
+      type: "string"
+      description: "command to be executed on the remote host(s)"
+      required: true
+      default: []
