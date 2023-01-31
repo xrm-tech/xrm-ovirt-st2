@@ -1,33 +1,33 @@
 ---
-  site_primary_url:
+  01_site_primary_url:
     description: "Primary engine API address"
     type: "string"
     required: true
     default: "https://engine-primary.local/ovirt-engine/api"
     secret: false
-  site_primary_username:
+  02_site_primary_username:
       description: "Primary engine account username"
       type: "string"
       default: "admin@internal"
       required: true
-  site_primary_password:
+  03_site_primary_password:
       description: "Primary engine account password"
       type: "string"
       default: ""
       secret: true
       required: true
-  site_secondary_url:
+  04_site_secondary_url:
     description: "Secondary engine API address"
     type: "string"
     required: true
     default: "https://engine-secondary.local/ovirt-engine/api"
     secret: false
-  site_secondary_username:
+  05_site_secondary_username:
       description: "Secondary engine account username"
       type: "string"
       default: "admin@internal"
       required: true
-  site_secondary_password:
+  06_site_secondary_password:
       description: "Secondary engine account password"
       type: "string"
       default: ""
