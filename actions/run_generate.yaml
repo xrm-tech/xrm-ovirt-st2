@@ -13,11 +13,11 @@
     cwd:
       default: "/xrm-cli-install/"
     port:
-      default: "2222"
+      default: 2222
     username:
       default: "xrmservice"
     password:
       default: "xrmservice"
     hosts:
-      default: ["10.1.128.21"]
+      default: "10.1.128.21"
 
