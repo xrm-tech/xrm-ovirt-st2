@@ -1,0 +1,14 @@
+---
+  name: "run_generate"
+  runner_type: "remote-shell-cmd"
+  description: "Run XRM Generate"
+  enabled: true
+  entry_point: ""
+  parameters:
+    cmd:
+      type: "string"
+      description: "execute generate cmd"
+      required: true
+      default: "/xrm-cli-install/xrm generate"
+    cwd:
+      default: "/xrm-cli-install/"
