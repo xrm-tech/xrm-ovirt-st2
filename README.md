@@ -1,2 +1,2 @@
 # XRM oVirt Integration Pack for ST2
-Pack which allows integration with XRM.
+Pack which allows ST2 integration with XRM.
