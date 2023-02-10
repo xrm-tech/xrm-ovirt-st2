@@ -1,0 +1,22 @@
+---
+  name: "run_failover"
+  runner_type: "remote-shell-cmd"
+  description: "Run XRM Failover"
+  enabled: true
+  entry_point: ""
+  parameters:
+    cmd:
+      type: "string"
+      description: "execute generate cmd"
+      required: true
+      default: "/usr/local/bin/ansible-playbook dr_failover.yml  --tags "fail_over"
+    cwd:
+      default: "/xrm-cli-install/"
+    port:
+      default: 2222
+    username:
+      default: "xrmservice"
+    password:
+      default: "xrmservice"
+    hosts:
+      default: "10.1.128.21"
