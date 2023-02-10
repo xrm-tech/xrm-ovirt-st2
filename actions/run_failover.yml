@@ -9,7 +9,7 @@
       type: "string"
       description: "execute generate cmd"
       required: true
-      default: "/usr/local/bin/ansible-playbook dr_failover.yml  --tags "fail_over"
+      default: "/usr/local/bin/ansible-playbook dr_failover.yml  --tags \"fail_over\""
     cwd:
       default: "/xrm-cli-install/"
     port:
