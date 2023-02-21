@@ -3,15 +3,26 @@ import os
 import requests
 from st2common.runners.base_action import Action
 
+from lib.xrmcontroller import XRMBaseAction
+
 __all__ = [
     'RunCmd'
 ]
 
 
-class RunCmd(Action):
+class RunGenerate(XRMBaseAction):
 
     def run(self, address):
-        print (self.config['01_site_primary_url'])
-        print (self.config['02_site_primary_username'])
-        print (self.config['03_site_primary_password'])
+        #self.login()
+        data = {"service": "1", "id": "2", "action": "3"}
+        self.session.post(address, data=data)
+
+
+
+
+
+        #print (self.config['01_site_primary_url'])
+        #print (self.config['02_site_primary_username'])
+        #print (self.config['03_site_primary_password'])
+
         return True
