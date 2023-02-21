@@ -1,0 +1,12 @@
+---
+  name: "run_generate_post_json"
+  runner_type: "python-script"
+  description: "Run generate with json config"
+  enabled: true
+  entry_point: "run_generate_post_json.py"
+  parameters:
+    address:
+      type: "string"
+      description: "address to post json data"
+      required: true
+      default: "https://reqbin.com/echo/post/json"
