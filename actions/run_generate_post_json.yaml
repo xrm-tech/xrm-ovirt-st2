@@ -9,4 +9,4 @@
       type: "string"
       description: "address to post json data"
       required: true
-      default: "https://reqbin.com/echo/post/json"
+      default: "https://httpbin.org/post"
