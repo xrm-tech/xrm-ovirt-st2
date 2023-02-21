@@ -15,11 +15,8 @@ class RunGenerate(XRMBaseAction):
     def run(self, address):
         #self.login()
         data = {"service": "1", "id": "2", "action": "3"}
-        self.session.post(address, data=data)
-
-
-
-
+        req = self.session.post(address, data=data)
+        print(req)
 
         #print (self.config['01_site_primary_url'])
         #print (self.config['02_site_primary_username'])
