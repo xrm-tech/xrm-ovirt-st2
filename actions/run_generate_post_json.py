@@ -16,7 +16,7 @@ class RunGenerate(XRMBaseAction):
         #self.login()
         data = {"service": "1", "id": "2", "action": "3"}
         req = self.session.post(address, data=data)
-        print(req)
+        print(req.text)
 
         #print (self.config['01_site_primary_url'])
         #print (self.config['02_site_primary_username'])
