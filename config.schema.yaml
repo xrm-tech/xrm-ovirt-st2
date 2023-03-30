@@ -33,3 +33,15 @@
       default: ""
       secret: true
       required: true
+  07_primary_storage_domains:      
+      description: "Sensor specific settings."
+      type: "object"
+      required: false
+      additionalProperties: false
+      properties:
+        device_uids:
+          type: "array"
+          description: "A list of device UIDs to poll metrics for."
+          items:
+            type: "string"
+        required: false
