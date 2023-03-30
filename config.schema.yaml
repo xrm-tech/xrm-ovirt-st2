@@ -44,4 +44,4 @@
           description: "A list of device UIDs to poll metrics for."
           items:
             type: "string"
-        required: false
+          required: false
