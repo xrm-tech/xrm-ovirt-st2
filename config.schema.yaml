@@ -34,14 +34,14 @@
       secret: true
       required: true
   07_primary_storage_domains:      
-      description: "Sensor specific settings."
+      description: "Storage domains on primary site. Supported syntax: {\"domains_nfs\": [\"addr1:/path\", \"addr2:/path\"], \"domains_fc\": [\"WWN001\", \"WWN002\"]}"
       type: "object"
       required: false
       additionalProperties: false
       properties:
         device_uids:
           type: "array"
-          description: "A list of device UIDs to poll metrics for."
+          description: "List of storage domains"
           items:
             type: "string"
           required: false
