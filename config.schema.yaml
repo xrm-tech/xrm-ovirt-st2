@@ -34,20 +34,20 @@
       secret: true
       required: true
   07_primary_storage_domains:      
-      description: "Storage domains on primary site. Supported syntax: {\"domains_nfs\": [\"addr1:/path\", \"addr2:/path\"], \"domains_fc\": [\"WWN001\", \"WWN002\"]}"
+      description: "Storage domains on primary site. Supported syntax:"
       type: "object"
       required: false
       additionalProperties: false
       properties:
         domains_nfs:
           type: "array"
-          description: "A list of NFS domains"
+          description: "List of NFS domains"
           items:
             type: "string"
           required: false
         domains_fc:
           type: "array"
-          description: "A list of NFS domains"
+          description: "List of FC domains"
           items:
             type: "string"
           required: false
