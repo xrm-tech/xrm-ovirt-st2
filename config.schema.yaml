@@ -39,7 +39,7 @@
       required: false
       additionalProperties: false
       properties:
-        domains_nfs:
+        device_uids:
           type: "array"
           description: "A list of device UIDs to poll metrics for."
           items:
