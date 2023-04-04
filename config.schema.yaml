@@ -33,15 +33,3 @@
       default: ""
       secret: true
       required: true
-  07_primary_storage_domains:      
-      description: "Storage domains on primary site"
-      type: "string"
-      default: "nfs://192.168.122.210:/nfs_dom/;nfs://192.168.122.210:/nfs_backup/"
-      required: false
-      secret: false
-  08_secondary_storage_domains:      
-      description: "Storage domains on secondary site"
-      type: "string"
-      default: "nfs://192.168.122.210:/nfs_dom_replica/;nfs://192.168.122.210:/nfs_backup_replica/"
-      required: false
-      secret: false
