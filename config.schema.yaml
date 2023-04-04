@@ -45,3 +45,9 @@
     default: "nfs://192.168.122.210:/nfs_dom_replica/;nfs://192.168.122.210:/nfs_backup_replica/"
     required: true
     secret: false
+  09_additional_params:
+    description: "Optional parameters in JSON format"
+    type: "string"
+    default: ""
+    required: false
+    secret: false
