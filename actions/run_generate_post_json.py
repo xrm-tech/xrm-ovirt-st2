@@ -28,7 +28,7 @@ class RunGenerate(XRMBaseAction):
                 type= stg.split("://")[0]
                 addr = stg.split("://")[1].split(":")[0]
                 path = "/"+stg.split(":/")[2].split("/")[0]
-                print (type +" "+ addr+" "+path)
+                #print (type +" "+ addr+" "+path)
                 item={"primary_type":type,"primary_addr":addr,"primary_path":path}
                 ret.append(item)
             except Exception as e:
@@ -39,14 +39,14 @@ class RunGenerate(XRMBaseAction):
                 type= stg.split("://")[0]
                 addr = stg.split("://")[1].split(":")[0]
                 path = "/"+stg.split(":/")[2].split("/")[0]
-                print (str(idx)+" "+type +" "+ addr+" "+path)
+                #print (str(idx)+" "+type +" "+ addr+" "+path)
                 ret[idx]["secondary_type"] = type;
                 ret[idx]["secondary_addr"] = addr;
                 ret[idx]["secondary_path"] = path;
             except Exception as e:
                 print("Exception in parse_storage_to_json: " + str(e))
             idx+=1
-                
+        print (ret)
         return ret
 
     def run(self, address):
