@@ -17,11 +17,11 @@
       secret: true
       required: true
   04_site_secondary_url:
-    description: "Secondary engine API address"
-    type: "string"
-    required: true
-    default: "https://engine-secondary.local/ovirt-engine/api"
-    secret: false
+      description: "Secondary engine API address"
+      type: "string"
+      required: true
+      default: "https://engine-secondary.local/ovirt-engine/api"
+      secret: false
   05_site_secondary_username:
       description: "Secondary engine account username"
       type: "string"
@@ -34,14 +34,12 @@
       secret: true
       required: true
   07_primary_storage_domains:      
-      description: "Storage domains on primary site. Supported syntax: {\"domains_nfs\": [\"addr1:/path\", \"addr2:/path\"], \"domains_fc\": [\"WWN001\", \"WWN002\"]}"
-      type: "object"
+      description: "Storage domains on primary site"
+      type: "string"
+      default: "nfs://192.168.122.210:/nfs_dom/;nfs://192.168.122.210:/nfs_backup/"
       required: false
-      additionalProperties: false
-      properties:
-        device_uids:
-          type: "array"
-          description: "List of storage domains"
-          items:
-            type: "string"
-          required: false
+  08_secondary_storage_domains:      
+      description: "Storage domains on secondary site"
+      type: "string"
+      default: "nfs://192.168.122.210:/nfs_dom_replica/;nfs://192.168.122.210:/nfs_backup_replica/"
+      required: false
