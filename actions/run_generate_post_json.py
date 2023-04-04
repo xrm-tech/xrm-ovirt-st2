@@ -59,6 +59,7 @@ class RunGenerate(XRMBaseAction):
                 "site_secondary_password": self.config['06_site_secondary_password']}
         storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])      
         data["storage_domains"]=storage_data
+        print (data)
         req = self.session.post(address, data=data)
         print(req.text)
 
