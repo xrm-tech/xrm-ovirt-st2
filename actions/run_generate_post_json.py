@@ -12,7 +12,7 @@ __all__ = [
 
 class RunGenerate(XRMBaseAction):
 
-    def parse_storage_to_json(primary_storages,secondary_storages):
+    def parse_storage_to_json(self,primary_storages,secondary_storages):
         """
         Sample output:
 
