@@ -60,12 +60,15 @@ class RunGenerate(XRMBaseAction):
         storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])      
         data["storage_domains"]=storage_data
         print (data)
-        req = self.session.post(address, data=data)
+        req = self.session.post(address, json=data)
+        print("status", req.status_code)
         print(req.text)
 
         #print (self.config['01_site_primary_url'])
         #print (self.config['02_site_primary_username'])
         #print (self.config['03_site_primary_password'])
         
-
-        return True
+        if req.status_code == 200:
+            return True
+        else:
+            return False
