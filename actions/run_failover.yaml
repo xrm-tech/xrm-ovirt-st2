@@ -1,0 +1,17 @@
+---
+  name: "Disaster Recovery to Secondary Site (Failover)"
+  runner_type: "python-script"
+  description: "Run Failover Action for Recovery Plan"
+  enabled: true
+  entry_point: "run_failover.py"
+  parameters:
+    plan_name:
+      type: "string"
+      description: "DR Plan name"
+      required: true
+      default: "test"
+    address:
+      type: "string"
+      description: "address to connect to XRM controller"
+      required: false
+      default: "{{config_context.sys_controller_address}}/failover/"

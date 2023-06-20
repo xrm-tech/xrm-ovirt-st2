@@ -1,0 +1,17 @@
+---
+  name: "Return to Primary Site (Failback)""
+  runner_type: "python-script"
+  description: "Run Failback Action for Recovery Plan"
+  enabled: true
+  entry_point: "run_failback.py"
+  parameters:
+    plan_name:
+      type: "string"
+      description: "DR Plan name"
+      required: true
+      default: "test"
+    address:
+      type: "string"
+      description: "address to connect to XRM controller"
+      required: false
+      default: "{{config_context.sys_controller_address}}/failback/"
