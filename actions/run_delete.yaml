@@ -1,9 +1,9 @@
 ---
-  name: "Generate Recovery Plan"
+  name: "Delete Recovery Plan"
   runner_type: "python-script"
-  description: "Generate DR Plan configuration"
+  description: "Delete DR Plan configuration"
   enabled: true
-  entry_point: "run_generate.py"
+  entry_point: "run_delete.py"
   parameters:
     plan_name:
       type: "string"
@@ -14,4 +14,4 @@
       type: "string"
       description: "address to connect to XRM controller"
       required: false
-      default: "{{config_context.sys_controller_address}}/generate/"
+      default: "{{config_context.sys_controller_address}}/delete/"

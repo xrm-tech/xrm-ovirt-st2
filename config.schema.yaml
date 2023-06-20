@@ -51,3 +51,11 @@
     default: ""
     required: false
     secret: false
+  sys_controller_address:
+    description: "XRM Controller connection address"
+    type: "string"
+    default: "http://st2:459Qdr@test_xrmcontroller_1:8080/ovirt"
+    required: false
+    secret: false
+
+  

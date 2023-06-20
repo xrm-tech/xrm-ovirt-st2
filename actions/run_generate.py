@@ -1,6 +1,7 @@
 import base64
 import os
 import requests
+import sys
 from st2common.runners.base_action import Action
 
 from lib.xrmcontroller import XRMBaseAction
@@ -29,7 +30,8 @@ class RunGenerate(XRMBaseAction):
                 addr = stg.split("://")[1].split(":")[0]
                 path = "/"+stg.split(":/")[2].split("/")[0]
                 #print (type +" "+ addr+" "+path)
-                item={"primary_type":type,"primary_addr":addr,"primary_path":path}
+                #item={"primary_type":type,"primary_addr":addr,"primary_path":path}
+                item={"primary_addr":addr,"primary_path":path}
                 ret.append(item)
             except Exception as e:
                 print("Exception in parse_storage_to_json: " + str(e))
@@ -40,7 +42,7 @@ class RunGenerate(XRMBaseAction):
                 addr = stg.split("://")[1].split(":")[0]
                 path = "/"+stg.split(":/")[2].split("/")[0]
                 #print (str(idx)+" "+type +" "+ addr+" "+path)
-                ret[idx]["secondary_type"] = type;
+                #ret[idx]["secondary_type"] = type;
                 ret[idx]["secondary_addr"] = addr;
                 ret[idx]["secondary_path"] = path;
             except Exception as e:
@@ -49,7 +51,7 @@ class RunGenerate(XRMBaseAction):
         print (ret)
         return ret
 
-    def run(self, address):
+    def run(self, address, plan_name):
         #self.login()
         data = {"site_primary_url": self.config['01_site_primary_url'],\
                 "site_primary_username": self.config['02_site_primary_username'],\
@@ -60,7 +62,7 @@ class RunGenerate(XRMBaseAction):
         storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])      
         data["storage_domains"]=storage_data
         print (data)
-        req = self.session.post(address, json=data)
+        req = self.session.post(address+plan_name, json=data)
         print("status", req.status_code)
         print(req.text)
 
@@ -71,4 +73,5 @@ class RunGenerate(XRMBaseAction):
         if req.status_code == 200:
             return True
         else:
+            sys.exit(1)
             return False
