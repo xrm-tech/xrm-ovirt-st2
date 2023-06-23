@@ -1,5 +1,5 @@
 ---
-  name: "Return to Primary Site (Failback)"
+  name: "Return_to_Primary_Site_(Failback)"
   runner_type: "python-script"
   description: "Run Failback Action for Recovery Plan"
   enabled: true
