@@ -1,7 +1,7 @@
 ---
-  name: "Delete_Recovery_Plan"
+  name: "Delete"
   runner_type: "python-script"
-  description: "Delete DR Plan configuration"
+  description: "Delete recovery plan configuration"
   enabled: true
   entry_point: "run_delete.py"
   parameters:
