@@ -1,5 +1,5 @@
 ---
-  name: "Generate Recovery Plan"
+  name: "Generate_Recovery_Plan"
   runner_type: "python-script"
   description: "Generate DR Plan configuration"
   enabled: true
