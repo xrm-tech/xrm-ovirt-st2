@@ -1,5 +1,5 @@
 ---
-  name: "Failover"
+  name: "Fail_Over"
   runner_type: "python-script"
   description: "Preform disaster recovery to secondary Site"
   enabled: true
