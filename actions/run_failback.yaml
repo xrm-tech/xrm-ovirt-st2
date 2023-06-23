@@ -1,7 +1,7 @@
 ---
-  name: "Return_to_Primary_Site_(Failback)"
+  name: "Fail_Back"
   runner_type: "python-script"
-  description: "Run Failback Action for Recovery Plan"
+  description: "Perform return to primary site"
   enabled: true
   entry_point: "run_failback.py"
   parameters:
