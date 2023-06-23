@@ -1,7 +1,7 @@
 ---
-  name: "Disaster_Recovery_to_Secondary_Site_(Failover)"
+  name: "Failover"
   runner_type: "python-script"
-  description: "Run Failover Action for Recovery Plan"
+  description: "Preform disaster recovery to secondary Site"
   enabled: true
   entry_point: "run_failover.py"
   parameters:
