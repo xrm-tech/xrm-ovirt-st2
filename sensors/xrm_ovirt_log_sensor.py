@@ -7,33 +7,47 @@ __all__ = [
     'XRMOvirtLogSensor'
 ]
 
-BASE_URL = 'https://twitter.com'
-
 
 class XRMOvirtLogSensor(PollingSensor):
     def __init__(self, sensor_service, config=None, poll_interval=None):
-        super(TwitterSearchSensor, self).__init__(sensor_service=sensor_service,
+        super(XRMOvirtLogSensor, self).__init__(sensor_service=sensor_service,
                                                   config=config,
                                                   poll_interval=poll_interval)
-        self._trigger_ref = 'twitter.matched_tweet'
+        self._trigger_ref = 'xrm_ovirt.event_log_watch'
         self._logger = self._sensor_service.get_logger(__name__)
 
     def setup(self):
-        self._client = TwitterSearch(
-            consumer_key=self._config['consumer_key'],
-            consumer_secret=self._config['consumer_secret'],
-            access_token=self._config['access_token'],
-            access_token_secret=self._config['access_token_secret']
-        )
         self._last_id = None
 
-        if type(self._config['query']) is not list:
-            self._logger.exception('Twitter sensor failed. "query" config \
-                                    value is not a list')
-            raise ValueError('[TwitterSearchSensor]: "query" is not a list')
+        #if type(self._config['query']) is not list:
+        #    self._logger.exception('Twitter sensor failed. "query" config \
+        #                            value is not a list')
+        #    raise ValueError('[TwitterSearchSensor]: "query" is not a list')
+        self._server_address = trigger["parameters"].get("01_engine_url", None)
+        self._server_username = trigger["parameters"].get("02_engine_login", None)
+        self._server_password = trigger["parameters"].get("03_engine_password", None)
+        self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
 
     def poll(self):
-        tso = TwitterSearchOrder()
+        events = None
+
+        if events:
+            self._set_last_id(last_id="123")
+
+        for event in events:
+            self._dispatch_trigger_for_event(event=event)
+        event= {
+            'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
+            'time':"2023-06-27T17:12:09.531+02:00",
+            'severity':"error",
+            'code':"9803",
+            'origin':"XRM",
+            'index':"62197",
+            'custom_id':"1467879758"          
+        }
+        self._dispatch_trigger_for_event(event=event)
+
+        '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
 
         language = self._config.get('language', None)
@@ -63,6 +77,7 @@ class XRMOvirtLogSensor(PollingSensor):
 
         for tweet in tweets:
             self._dispatch_trigger_for_tweet(tweet=tweet)
+        '''
 
     def cleanup(self):
         pass
@@ -88,9 +103,10 @@ class XRMOvirtLogSensor(PollingSensor):
         if hasattr(self._sensor_service, 'set_value'):
             self._sensor_service.set_value(name='last_id', value=last_id)
 
-    def _dispatch_trigger_for_tweet(self, tweet):
+    def _dispatch_trigger_for_event(self, event):
         trigger = self._trigger_ref
 
+        '''
         url = '%s/%s/status/%s' % (BASE_URL, tweet['user']['screen_name'], tweet['id'])
         payload = {
             'id': tweet['id'],
@@ -108,4 +124,16 @@ class XRMOvirtLogSensor(PollingSensor):
             'text': tweet['text'],
             'url': url
         }
+        '''
+        
+        payload = {
+            'description':event['description'],
+            'time':event['time'],
+            'severity':event['severity'],
+            'code':event['code'],
+            'origin':event['origin'],
+            'index':event['index'],
+            'custom_id':event['custom_id']
+        }
+
         self._sensor_service.dispatch(trigger=trigger, payload=payload)
