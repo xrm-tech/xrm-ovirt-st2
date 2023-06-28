@@ -27,7 +27,7 @@ class XRMOvirtLogSensor(PollingSensor):
         print("poll started")
         events = []
 
-        req = self.session.get("http://37.187.132.140:8081/st2test")
+        req = requests.get("http://37.187.132.140:8081/st2test")
         print("status", req.status_code)
         print(req.text)
 
