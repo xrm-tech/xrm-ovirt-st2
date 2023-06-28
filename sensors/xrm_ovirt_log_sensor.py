@@ -135,5 +135,5 @@ class XRMOvirtLogSensor(PollingSensor):
             'index':event['index'],
             'custom_id':event['custom_id']
         }
-
+        print("before service dispatch")
         self.sensor_service.dispatch(trigger=trigger, payload=payload)
