@@ -1,6 +1,3 @@
-from TwitterSearch import TwitterSearch
-from TwitterSearch import TwitterSearchOrder
-
 from st2reactor.sensor.base import PollingSensor
 
 __all__ = [
