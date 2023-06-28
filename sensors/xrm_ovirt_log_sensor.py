@@ -27,9 +27,13 @@ class XRMOvirtLogSensor(PollingSensor):
         print("poll started")
         events = []
 
-        req = requests.get("http://37.187.132.140:8081/st2test")
-        print("status", req.status_code)
-        print(req.text)
+        try:
+
+            req = requests.get("http://37.187.132.140:8081/st2test")
+            print("status", req.status_code)
+            print(req.text)
+        except:
+            pass
 
         if events:
             self._set_last_id(last_id="123")
@@ -49,6 +53,7 @@ class XRMOvirtLogSensor(PollingSensor):
         print("before dispatch")
         #self._dispatch_trigger_for_event(event=event)
         print("poll ended")
+        #exit(0)
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
 
