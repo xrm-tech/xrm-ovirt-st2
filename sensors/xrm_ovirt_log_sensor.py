@@ -23,7 +23,6 @@ class XRMOvirtLogSensor(PollingSensor):
 
 
     def poll(self):
-        print("poll started")
         self._logger.info("log.info: poll started")
         events = []
 
@@ -50,9 +49,9 @@ class XRMOvirtLogSensor(PollingSensor):
             'index':"62197",
             'custom_id':"1467879758"          
         }
-        print("before dispatch")
+        self._logger.info("before dispatch")
         self._dispatch_trigger_for_event(event=event)
-        print("poll ended")
+        self._logger.info("poll ended")
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
 
@@ -144,5 +143,5 @@ class XRMOvirtLogSensor(PollingSensor):
             'index':event['index'],
             'custom_id':event['custom_id']
         }
-        print("before service dispatch")
+        self._logger.info("before service dispatch")
         self.sensor_service.dispatch(trigger=trigger, payload=payload)
