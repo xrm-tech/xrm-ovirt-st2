@@ -20,10 +20,7 @@ class XRMOvirtLogSensor(PollingSensor):
         #    self._logger.exception('Twitter sensor failed. "query" config \
         #                            value is not a list')
         #    raise ValueError('[TwitterSearchSensor]: "query" is not a list')
-        self._server_address = trigger["parameters"].get("01_engine_url", None)
-        self._server_username = trigger["parameters"].get("02_engine_login", None)
-        self._server_password = trigger["parameters"].get("03_engine_password", None)
-        self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
+
 
     def poll(self):
         events = None
@@ -80,7 +77,10 @@ class XRMOvirtLogSensor(PollingSensor):
         pass
 
     def add_trigger(self, trigger):
-        pass
+        self._server_address = trigger["parameters"].get("01_engine_url", None)
+        self._server_username = trigger["parameters"].get("02_engine_login", None)
+        self._server_password = trigger["parameters"].get("03_engine_password", None)
+        self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
 
     def update_trigger(self, trigger):
         pass
