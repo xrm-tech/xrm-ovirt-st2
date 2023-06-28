@@ -24,7 +24,7 @@ class XRMOvirtLogSensor(PollingSensor):
 
     def poll(self):
         print("poll started")
-        self.log.info("log.info: poll started")
+        self._logger.info("log.info: poll started")
         events = []
 
         try:
