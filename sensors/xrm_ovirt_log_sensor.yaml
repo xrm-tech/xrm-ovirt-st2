@@ -27,6 +27,11 @@
             type: "string"
             required: true
             secret: true
+          04_event_search_text:
+            description: "Action will be triggered when this text appears in event log"
+            default: "was deactivated by system because it's not visible by any of the hosts"
+            type: "string"
+            required: true
         additionalProperties: false
       # This is the schema of the trigger payload the sensor generates
       payload_schema:
