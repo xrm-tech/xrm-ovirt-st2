@@ -5,9 +5,9 @@
   description: "XRM sensor which monitors ovirt logs for specific events"
   trigger_types:
     -
-      name: "event_watch"
+      name: "event_log_watch"
       pack: "xrm_ovirt"
-      description: "Trigger which indicates a new event has been detected"
+      description: "XRM trigger which indicates a new event has been detected"
       parameters_schema:
         type: "object"
         properties:
