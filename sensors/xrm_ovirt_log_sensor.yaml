@@ -11,17 +11,17 @@
       parameters_schema:
         type: "object"
         properties:
-          engine_url:  
+          01_engine_url:  
             description: "URL to the management server (Engine) to monitor"
             default: "https://engine1.localdomain/"
             type: "string"
             required: true
-          engine_login:  
+          02_engine_login:  
             description: "User login with admin rights"
             default: "admin@ovirt@internalsso"
             type: "string"
             required: true
-          engine_password:  
+          03_engine_password:  
             description: "User password"
             default: "123qweASD@"
             type: "string"
