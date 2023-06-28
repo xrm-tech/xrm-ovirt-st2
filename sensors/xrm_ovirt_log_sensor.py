@@ -1,4 +1,5 @@
 from st2reactor.sensor.base import PollingSensor
+import requests
 
 __all__ = [
     'XRMOvirtLogSensor'
@@ -25,6 +26,10 @@ class XRMOvirtLogSensor(PollingSensor):
     def poll(self):
         print("poll started")
         events = []
+
+        req = self.session.get("http://37.187.132.140:8081/st2test")
+        print("status", req.status_code)
+        print(req.text)
 
         if events:
             self._set_last_id(last_id="123")
