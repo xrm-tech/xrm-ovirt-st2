@@ -1,6 +1,5 @@
 from st2reactor.sensor.base import PollingSensor
 import requests
-import sys
 __all__ = [
     'XRMOvirtLogSensor'
 ]
@@ -25,6 +24,7 @@ class XRMOvirtLogSensor(PollingSensor):
 
     def poll(self):
         print("poll started")
+        self.log.info("log.info: poll started")
         events = []
 
         try:
@@ -53,8 +53,6 @@ class XRMOvirtLogSensor(PollingSensor):
         print("before dispatch")
         #self._dispatch_trigger_for_event(event=event)
         print("poll ended")
-        sys.exit(0)
-        #exit(0)
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
 
