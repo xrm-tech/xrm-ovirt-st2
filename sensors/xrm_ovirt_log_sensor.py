@@ -29,8 +29,9 @@ class XRMOvirtLogSensor(PollingSensor):
         if events:
             self._set_last_id(last_id="123")
 
-        for event in events:
-            self._dispatch_trigger_for_event(event=event)
+        #for event in events:
+         #   self._dispatch_trigger_for_event(event=event)
+        
         event= {
             'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
             'time':"2023-06-27T17:12:09.531+02:00",
@@ -40,6 +41,7 @@ class XRMOvirtLogSensor(PollingSensor):
             'index':"62197",
             'custom_id':"1467879758"          
         }
+        print("before dispatch")
         self._dispatch_trigger_for_event(event=event)
         print("poll ended")
         '''tso = TwitterSearchOrder()
