@@ -23,7 +23,7 @@ class XRMOvirtLogSensor(PollingSensor):
 
 
     def poll(self):
-        events = None
+        events = []
 
         if events:
             self._set_last_id(last_id="123")
