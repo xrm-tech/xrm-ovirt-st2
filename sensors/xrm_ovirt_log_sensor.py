@@ -16,10 +16,6 @@ class XRMOvirtLogSensor(PollingSensor):
 
     def setup(self):
         self._last_id = None
-        self._server_address = trigger["parameters"].get("01_engine_url", None)
-        self._server_username = trigger["parameters"].get("02_engine_login", None)
-        self._server_password = trigger["parameters"].get("03_engine_password", None)
-        self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
 
         #if type(self._config['query']) is not list:
         #    self._logger.exception('Twitter sensor failed. "query" config \
@@ -45,19 +41,31 @@ class XRMOvirtLogSensor(PollingSensor):
         #for event in events:
          #   self._dispatch_trigger_for_event(event=event)
         
-        eventdata= {
-            'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
-            'time':"2023-06-27T17:12:09.531+02:00",
-            'severity':"error",
-            'code':"9803",
-            'origin':"XRM",
-            'index':"62197",
-            'custom_id':"1467879758"          
-        }
+
         self._logger.info("before dispatch")
-        trigger = self.string_ref[self._server_search_text]
+
         
-        self._dispatch_trigger_for_event(eventdata=eventdata,trigger=trigger)
+        lines_from_log = []
+        # lines_from_log = pool_log_from_ovirt()
+        
+        if self.string_ref:
+            
+            lines_from_log.append(string_ref[0]); # add 1 line for debug
+           
+            for line in line_from_log: 
+                for search_string in string_ref.keys():
+                if line.casefold() == search_string.casefodl():
+                    trigger = string_ref[search_string];
+                    eventdata= {
+                        'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
+                        'time':"2023-06-27T17:12:09.531+02:00",
+                        'severity':"error",
+                        'code':"9803",
+                        'origin':"XRM",
+                        'index':"62197",
+                        'custom_id':"1467879758"          
+                    }    
+                    self._dispatch_trigger_for_event(eventdata=eventdata,trigger=trigger)
         self._logger.info("poll ended")
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
@@ -95,7 +103,11 @@ class XRMOvirtLogSensor(PollingSensor):
         pass
 
     def add_trigger(self, trigger):
-        self._logger.info("started add trigger")      
+        self._logger.info("started add trigger")
+        self._server_address = trigger["parameters"].get("01_engine_url", None)
+        self._server_username = trigger["parameters"].get("02_engine_login", None)
+        self._server_password = trigger["parameters"].get("03_engine_password", None)
+        self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
         trigger = trigger.get("ref", None)
         self.string_ref[self._server_search_text] = trigger
         self._logger.info(f"Added string '{self._server_search_text}' ({trigger}) to watch list.")
