@@ -10,8 +10,9 @@ class XRMOvirtLogSensor(PollingSensor):
         super(XRMOvirtLogSensor, self).__init__(sensor_service=sensor_service,
                                                   config=config,
                                                   poll_interval=poll_interval)
-        self._trigger_ref = 'xrm_ovirt.event_log_watch'
+        
         self._logger = self._sensor_service.get_logger(__name__)
+        self.string_ref = {}
 
     def setup(self):
         self._last_id = None
@@ -50,7 +51,9 @@ class XRMOvirtLogSensor(PollingSensor):
             'custom_id':"1467879758"          
         }
         self._logger.info("before dispatch")
-        self._dispatch_trigger_for_event(eventdata=eventdata)
+        trigger = self.string_ref[self._server_search_text]
+        
+        self._dispatch_trigger_for_event(eventdata=eventdata,trigger=trigger)
         self._logger.info("poll ended")
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
@@ -94,6 +97,9 @@ class XRMOvirtLogSensor(PollingSensor):
         self._server_password = trigger["parameters"].get("03_engine_password", None)
         self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
         self._logger.info("ended add trigger")
+        trigger = trigger.get("ref", None)
+        self.string_ref[self._server_search_text] = trigger
+        self._logger.info(f"Added string '{self._server_search_text}' ({trigger}) to watch list.")
 
     def update_trigger(self, trigger):
         pass
@@ -113,8 +119,8 @@ class XRMOvirtLogSensor(PollingSensor):
         if hasattr(self._sensor_service, 'set_value'):
             self._sensor_service.set_value(name='last_id', value=last_id)
 
-    def _dispatch_trigger_for_event(self, eventdata):
-        trigger = self._trigger_ref
+    def _dispatch_trigger_for_event(self, eventdata,trigger):
+       
 
         '''
         url = '%s/%s/status/%s' % (BASE_URL, tweet['user']['screen_name'], tweet['id'])
