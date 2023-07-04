@@ -40,7 +40,7 @@ class XRMOvirtLogSensor(PollingSensor):
         #for event in events:
          #   self._dispatch_trigger_for_event(event=event)
         
-        event= {
+        eventdata= {
             'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
             'time':"2023-06-27T17:12:09.531+02:00",
             'severity':"error",
@@ -50,7 +50,7 @@ class XRMOvirtLogSensor(PollingSensor):
             'custom_id':"1467879758"          
         }
         self._logger.info("before dispatch")
-        self._dispatch_trigger_for_event(event=event)
+        self._dispatch_trigger_for_event(event=eventdata)
         self._logger.info("poll ended")
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
@@ -111,7 +111,7 @@ class XRMOvirtLogSensor(PollingSensor):
         if hasattr(self._sensor_service, 'set_value'):
             self._sensor_service.set_value(name='last_id', value=last_id)
 
-    def _dispatch_trigger_for_event(self, event):
+    def _dispatch_trigger_for_event(self, eventdata):
         trigger = self._trigger_ref
 
         '''
@@ -134,14 +134,16 @@ class XRMOvirtLogSensor(PollingSensor):
         }
         '''
         
-        payload = {
-            'description':event['description'],
-            'time':event['time'],
-            'severity':event['severity'],
-            'code':event['code'],
-            'origin':event['origin'],
-            'index':event['index'],
-            'custom_id':event['custom_id']
+        data = {
+            'description':eventdata['description'],
+            'time':eventdata['time'],
+            'severity':eventdata['severity'],
+            'code':eventdata['code'],
+            'origin':eventdata['origin'],
+            'index':eventdata['index'],
+            'custom_id':eventdata['custom_id']
         }
+        payload = self._to_payload(data)
         self._logger.info("before service dispatch")
         self.sensor_service.dispatch(trigger=trigger, payload=payload)
+        self._logger.info("after service dispatch")
