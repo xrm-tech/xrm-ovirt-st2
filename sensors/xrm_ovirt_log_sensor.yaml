@@ -1,9 +1,9 @@
 ---
   class_name: "XRMOvirtLogSensor"
-  enabled: true
+  enabled: false
   entry_point: "xrm_ovirt_log_sensor.py"
   description: "XRM sensor which monitors ovirt logs for specific events"
-  poll_interval: 30
+  poll_interval: 60
   trigger_types:
     -
       name: "event_log_watch"
