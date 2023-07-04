@@ -109,7 +109,7 @@ class XRMOvirtLogSensor(PollingSensor):
         self._server_password = trigger["parameters"].get("03_engine_password", None)
         self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
         trigger = trigger.get("ref", None)
-        self.string_ref[self._server_search_text] = trigger
+        self._string_ref[self._server_search_text] = trigger
         self._logger.info(f"Added string '{self._server_search_text}' ({trigger}) to watch list.")
         self._logger.info("ended add trigger")
 
