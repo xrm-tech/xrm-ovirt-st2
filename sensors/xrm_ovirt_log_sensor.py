@@ -50,7 +50,7 @@ class XRMOvirtLogSensor(PollingSensor):
         
         if self._string_ref:
             
-            lines_from_log.append(string_ref[0]); # add 1 line for debug
+            lines_from_log.append(self._string_ref[0]); # add 1 line for debug
            
             for line in line_from_log: 
                 for search_string in self._string_ref.keys():
