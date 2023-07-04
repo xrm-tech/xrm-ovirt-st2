@@ -134,7 +134,7 @@ class XRMOvirtLogSensor(PollingSensor):
         }
         '''
         
-        data = {
+        payload  = {
             'description':eventdata['description'],
             'time':eventdata['time'],
             'severity':eventdata['severity'],
@@ -143,7 +143,7 @@ class XRMOvirtLogSensor(PollingSensor):
             'index':eventdata['index'],
             'custom_id':eventdata['custom_id']
         }
-        payload = self.to_payload(data)
+        
         self._logger.info("before service dispatch")
         self.sensor_service.dispatch(trigger=trigger, payload=payload)
         self._logger.info("after service dispatch")
