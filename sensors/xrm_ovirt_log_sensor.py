@@ -10,8 +10,9 @@ class XRMOvirtLogSensor(PollingSensor):
         super(XRMOvirtLogSensor, self).__init__(sensor_service=sensor_service,
                                                   config=config,
                                                   poll_interval=poll_interval)
-        self._trigger_ref = 'xrm_ovirt.event_log_watch'
+        
         self._logger = self._sensor_service.get_logger(__name__)
+        self._string_ref = {}
 
     def setup(self):
         self._last_id = None
@@ -40,17 +41,31 @@ class XRMOvirtLogSensor(PollingSensor):
         #for event in events:
          #   self._dispatch_trigger_for_event(event=event)
         
-        eventdata= {
-            'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
-            'time':"2023-06-27T17:12:09.531+02:00",
-            'severity':"error",
-            'code':"9803",
-            'origin':"XRM",
-            'index':"62197",
-            'custom_id':"1467879758"          
-        }
+
         self._logger.info("before dispatch")
-        self._dispatch_trigger_for_event(event=eventdata)
+
+        
+        lines_from_log = []
+        # lines_from_log = pool_log_from_ovirt()
+        
+        if self._string_ref:
+            
+            lines_from_log.append(list(self._string_ref.keys())[0]); # add 1 line for debug
+            self._logger.info(lines_from_log)
+            for line in lines_from_log: 
+                for search_string in self._string_ref.keys():
+                    if line.casefold() == search_string.casefold():
+                        trigger = self._string_ref[search_string];
+                        eventdata= {
+                            'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
+                            'time':"2023-06-27T17:12:09.531+02:00",
+                            'severity':"error",
+                            'code':"9803",
+                            'origin':"XRM",
+                            'index':"62197",
+                            'custom_id':"1467879758"          
+                        }    
+                        self._dispatch_trigger_for_event(eventdata=eventdata,trigger=trigger)
         self._logger.info("poll ended")
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
@@ -88,10 +103,15 @@ class XRMOvirtLogSensor(PollingSensor):
         pass
 
     def add_trigger(self, trigger):
+        self._logger.info("started add trigger")
         self._server_address = trigger["parameters"].get("01_engine_url", None)
         self._server_username = trigger["parameters"].get("02_engine_login", None)
         self._server_password = trigger["parameters"].get("03_engine_password", None)
         self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
+        trigger = trigger.get("ref", None)
+        self._string_ref[self._server_search_text] = trigger
+        self._logger.info(f"Added string '{self._server_search_text}' ({trigger}) to watch list.")
+        self._logger.info("ended add trigger")
 
     def update_trigger(self, trigger):
         pass
@@ -111,8 +131,8 @@ class XRMOvirtLogSensor(PollingSensor):
         if hasattr(self._sensor_service, 'set_value'):
             self._sensor_service.set_value(name='last_id', value=last_id)
 
-    def _dispatch_trigger_for_event(self, eventdata):
-        trigger = self._trigger_ref
+    def _dispatch_trigger_for_event(self, eventdata,trigger):
+       
 
         '''
         url = '%s/%s/status/%s' % (BASE_URL, tweet['user']['screen_name'], tweet['id'])
@@ -134,7 +154,7 @@ class XRMOvirtLogSensor(PollingSensor):
         }
         '''
         
-        data = {
+        payload  = {
             'description':eventdata['description'],
             'time':eventdata['time'],
             'severity':eventdata['severity'],
@@ -143,7 +163,8 @@ class XRMOvirtLogSensor(PollingSensor):
             'index':eventdata['index'],
             'custom_id':eventdata['custom_id']
         }
-        payload = self._to_payload(data)
+        
         self._logger.info("before service dispatch")
+        self._logger.info(f"Sending payload {payload} for trigger {trigger} to sensor_service.")
         self.sensor_service.dispatch(trigger=trigger, payload=payload)
         self._logger.info("after service dispatch")
