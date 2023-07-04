@@ -50,7 +50,7 @@ class XRMOvirtLogSensor(PollingSensor):
             'custom_id':"1467879758"          
         }
         self._logger.info("before dispatch")
-        self._dispatch_trigger_for_event(event=eventdata)
+        self._dispatch_trigger_for_event(eventdata=eventdata)
         self._logger.info("poll ended")
         '''tso = TwitterSearchOrder()
         tso.set_keywords(self._config['query'], True)
