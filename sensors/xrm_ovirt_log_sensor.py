@@ -16,6 +16,10 @@ class XRMOvirtLogSensor(PollingSensor):
 
     def setup(self):
         self._last_id = None
+        self._server_address = trigger["parameters"].get("01_engine_url", None)
+        self._server_username = trigger["parameters"].get("02_engine_login", None)
+        self._server_password = trigger["parameters"].get("03_engine_password", None)
+        self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
 
         #if type(self._config['query']) is not list:
         #    self._logger.exception('Twitter sensor failed. "query" config \
@@ -91,15 +95,11 @@ class XRMOvirtLogSensor(PollingSensor):
         pass
 
     def add_trigger(self, trigger):
-        self._logger.info("started add trigger")
-        self._server_address = trigger["parameters"].get("01_engine_url", None)
-        self._server_username = trigger["parameters"].get("02_engine_login", None)
-        self._server_password = trigger["parameters"].get("03_engine_password", None)
-        self._server_search_text = trigger["parameters"].get("04_event_search_text", None)
-        self._logger.info("ended add trigger")
+        self._logger.info("started add trigger")      
         trigger = trigger.get("ref", None)
         self.string_ref[self._server_search_text] = trigger
         self._logger.info(f"Added string '{self._server_search_text}' ({trigger}) to watch list.")
+        self._logger.info("ended add trigger")
 
     def update_trigger(self, trigger):
         pass
