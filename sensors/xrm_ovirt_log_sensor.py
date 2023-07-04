@@ -12,7 +12,7 @@ class XRMOvirtLogSensor(PollingSensor):
                                                   poll_interval=poll_interval)
         
         self._logger = self._sensor_service.get_logger(__name__)
-        self.string_ref = {}
+        self._string_ref = {}
 
     def setup(self):
         self._last_id = None
@@ -48,14 +48,14 @@ class XRMOvirtLogSensor(PollingSensor):
         lines_from_log = []
         # lines_from_log = pool_log_from_ovirt()
         
-        if self.string_ref:
+        if self._string_ref:
             
             lines_from_log.append(string_ref[0]); # add 1 line for debug
            
             for line in line_from_log: 
-                for search_string in string_ref.keys():
+                for search_string in self._string_ref.keys():
                     if line.casefold() == search_string.casefold():
-                        trigger = string_ref[search_string];
+                        trigger = self._string_ref[search_string];
                         eventdata= {
                             'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
                             'time':"2023-06-27T17:12:09.531+02:00",
