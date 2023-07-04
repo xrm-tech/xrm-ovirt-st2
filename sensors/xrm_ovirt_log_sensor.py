@@ -145,6 +145,6 @@ class XRMOvirtLogSensor(PollingSensor):
         }
         
         self._logger.info("before service dispatch")
-        self._logger.info("f"Sending payload {payload} for trigger {trigger} to sensor_service.")
+        self._logger.info(f"Sending payload {payload} for trigger {trigger} to sensor_service.")
         self.sensor_service.dispatch(trigger=trigger, payload=payload)
         self._logger.info("after service dispatch")
