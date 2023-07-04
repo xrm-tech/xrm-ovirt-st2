@@ -54,7 +54,7 @@ class XRMOvirtLogSensor(PollingSensor):
            
             for line in line_from_log: 
                 for search_string in string_ref.keys():
-                    if line.casefold() == search_string.casefodl():
+                    if line.casefold() == search_string.casefold():
                         trigger = string_ref[search_string];
                         eventdata= {
                             'description':"Storage Domain nfstst (Data Center Default) was deactivated by system because it's not visible by any of the hosts.",
