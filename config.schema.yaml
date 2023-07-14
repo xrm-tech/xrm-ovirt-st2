@@ -42,7 +42,7 @@
   08_secondary_storage:      
     description: "Storage domains on secondary site"
     type: "string"
-    default: "fs://192.168.122.210:/nfs_tst_replica/"
+    default: "nfs://192.168.122.210:/nfs_tst_replica/"
     required: true
     secret: false
   09_additional_params:
@@ -54,7 +54,7 @@
   sys_controller_address:
     description: "XRM Controller connection address"
     type: "string"
-    default: "http://st2:459Qdr@test_xrmcontroller_1:8080/ovirt"
+    default: "http://st2:459Qdr_@xrm-controller:8080/ovirt"
     required: false
     secret: false
 
