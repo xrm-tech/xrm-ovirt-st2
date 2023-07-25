@@ -54,7 +54,7 @@ class RunGenerate(XRMBaseAction):
                         ret[idx]["secondary_type"] = type;
                         ret[idx]["secondary_addr"] = addr;
                         ret[idx]["secondary_path"] = path;
-                     if type == "fc":
+                    if type == "fc":
                         addr = stg.split("://")[1]
                         path = "/"
                         ret[idx]["secondary_type"] = type;
