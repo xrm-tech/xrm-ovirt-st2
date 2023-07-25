@@ -39,7 +39,7 @@ class RunGenerate(XRMBaseAction):
                     ret.append(item)
                 else:
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
-                    reuturn []                 
+                    return []                 
             except Exception as e:
                 print("Exception in parse_storage_to_json: " + str(e))
         idx = 0
@@ -62,7 +62,7 @@ class RunGenerate(XRMBaseAction):
                         ret[idx]["secondary_path"] = path;
                  else:
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
-                    reuturn []   
+                    return []   
             except Exception as e:
                 print("Exception in parse_storage_to_json: " + str(e))
             idx+=1
