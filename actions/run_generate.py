@@ -26,7 +26,7 @@ class RunGenerate(XRMBaseAction):
         item = {}
 
         try:
-            type= stg.split("://")[0]
+            type= primary_storages.split(";")[0].split("://")[0]
         except Exception as e:
             print("Exception in parse_storage_to_json: Type not detected: " + str(e))
         if type == "nfs":
