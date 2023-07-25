@@ -24,64 +24,49 @@ class RunGenerate(XRMBaseAction):
         """
         ret = []
         item = {}
-
-        try:
-            type= primary_storages.split(";")[0].split("://")[0]
-        except Exception as e:
-            print("Exception in parse_storage_to_json: Type not detected: " + str(e))
-        if type == "nfs":
-            for stg in primary_storages.split(";"):
-                try:
-                    type= stg.split("://")[0]
-                    addr = stg.split("://")[1].split(":")[0]
-                    path = "/"+stg.split(":/")[2].split("/")[0]
-                    #print (type +" "+ addr+" "+path)
-                    item={"primary_type":type,"primary_addr":addr,"primary_path":path}
-                    #item={"primary_addr":addr,"primary_path":path}
+        for stg in primary_storages.split(";"):
+            try:
+                type= stg.split("://")[0]
+                if (type == "fc" or type == "nfs"):
+                    if type == "nfs":
+                        addr = stg.split("://")[1].split(":")[0]
+                        path = "/"+stg.split(":/")[2].split("/")[0]
+                        item={"primary_type":type,"primary_addr":addr,"primary_path":path}
+                    if type == "fc":
+                        addr = stg.split("://")[1]
+                        path = "/";
+                        item={"primary_type":type,"primary_addr":addr,"primary_path":path}
                     ret.append(item)
-                except Exception as e:
-                    print("Exception in parse_storage_to_json: " + str(e))
-            idx = 0
-            for stg in secondary_storages.split(";"):
-                try:
-                    type= stg.split("://")[0]
-                    addr = stg.split("://")[1].split(":")[0]
-                    path = "/"+stg.split(":/")[2].split("/")[0]
-                    #print (str(idx)+" "+type +" "+ addr+" "+path)
-                    ret[idx]["secondary_type"] = type;
-                    ret[idx]["secondary_addr"] = addr;
-                    ret[idx]["secondary_path"] = path;
-                except Exception as e:
-                    print("Exception in parse_storage_to_json: " + str(e))
-                idx+=1
-            print (ret)
-            return ret
-        if type == "fc":
-            for stg in primary_storages.split(";"):
-                try:
-                    type= stg.split("://")[0]
-                    addr = stg.split("://")[1].split("/")[0]
-                    #print (type +" "+ addr+" "+path)
-                    item={"primary_type":type,"primary_addr":addr,"primary_path":"/"}
-                    ret.append(item)
-                except Exception as e:
-                    print("Exception in parse_storage_to_json: " + str(e))
-            idx = 0
-            for stg in secondary_storages.split(";"):
-                try:
-                    type= stg.split("://")[0]
-                    addr = stg.split("://")[1].split("/")[0]
-                    path = "/";
-                    #print (str(idx)+" "+type +" "+ addr+" "+path)
-                    ret[idx]["secondary_type"] = type;
-                    ret[idx]["secondary_addr"] = addr;
-                    ret[idx]["secondary_path"] = path;
-                except Exception as e:
-                    print("Exception in parse_storage_to_json: " + str(e))
-                idx+=1
-            print (ret)
-            return ret
-        print("Exception in parse_storage_to_json: Type not supported:" + type)
+                else:
+                    print("Exception in parse_storage_to_json: Type not supported:" + type)
+                    reuturn []                 
+            except Exception as e:
+                print("Exception in parse_storage_to_json: " + str(e))
+        idx = 0
+        for stg in secondary_storages.split(";"):
+            try:
+                type= stg.split("://")[0]
+                if (type == "fc" or type == "nfs"): 
+                    if type == "nfs":
+                        addr = stg.split("://")[1].split(":")[0]
+                        path = "/"+stg.split(":/")[2].split("/")[0]
+                        #print (str(idx)+" "+type +" "+ addr+" "+path)
+                        ret[idx]["secondary_type"] = type;
+                        ret[idx]["secondary_addr"] = addr;
+                        ret[idx]["secondary_path"] = path;
+                     if type == "fc":
+                        addr = stg.split("://")[1]
+                        path = "/"
+                        ret[idx]["secondary_type"] = type;
+                        ret[idx]["secondary_addr"] = addr;
+                        ret[idx]["secondary_path"] = path;
+                 else:
+                    print("Exception in parse_storage_to_json: Type not supported:" + type)
+                    reuturn []   
+            except Exception as e:
+                print("Exception in parse_storage_to_json: " + str(e))
+            idx+=1
+        print (ret)
         return ret
 
     def run(self, address, plan_name):
