@@ -60,7 +60,7 @@ class RunGenerate(XRMBaseAction):
                         ret[idx]["secondary_type"] = type;
                         ret[idx]["secondary_addr"] = addr;
                         ret[idx]["secondary_path"] = path;
-                 else:
+                else:
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
                     return []   
             except Exception as e:
