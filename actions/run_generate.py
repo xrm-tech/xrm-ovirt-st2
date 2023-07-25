@@ -62,7 +62,7 @@ class RunGenerate(XRMBaseAction):
                     type= stg.split("://")[0]
                     addr = stg.split("://")[1].split("/")[0]
                     #print (type +" "+ addr+" "+path)
-                    item={"primary_type":type,"primary_addr":addr}
+                    item={"primary_type":type,"primary_addr":addr,"primary_path":"/"}
                     ret.append(item)
                 except Exception as e:
                     print("Exception in parse_storage_to_json: " + str(e))
@@ -71,6 +71,7 @@ class RunGenerate(XRMBaseAction):
                 try:
                     type= stg.split("://")[0]
                     addr = stg.split("://")[1].split("/")[0]
+                    path = "/";
                     #print (str(idx)+" "+type +" "+ addr+" "+path)
                     ret[idx]["secondary_type"] = type;
                     ret[idx]["secondary_addr"] = addr;
