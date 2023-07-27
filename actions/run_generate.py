@@ -27,12 +27,12 @@ class RunGenerate(XRMBaseAction):
         for stg in primary_storages.split(";"):
             try:
                 type= stg.split("://")[0]
-                if (type == "fc" or type == "nfs"):
+                if (type == "fcp" or type == "nfs"):
                     if type == "nfs":
                         addr = stg.split("://")[1].split(":")[0]
                         path = "/"+stg.split(":/")[2].split("/")[0]
                         item={"primary_type":type,"primary_addr":addr,"primary_path":path}
-                    if type == "fc":
+                    if type == "fcp":
                         addr = stg.split("://")[1]
                         path = "/";
                         item={"primary_type":type,"primary_addr":addr,"primary_path":path}
@@ -46,7 +46,7 @@ class RunGenerate(XRMBaseAction):
         for stg in secondary_storages.split(";"):
             try:
                 type= stg.split("://")[0]
-                if (type == "fc" or type == "nfs"): 
+                if (type == "fcp" or type == "nfs"): 
                     if type == "nfs":
                         addr = stg.split("://")[1].split(":")[0]
                         path = "/"+stg.split(":/")[2].split("/")[0]
@@ -54,7 +54,7 @@ class RunGenerate(XRMBaseAction):
                         ret[idx]["secondary_type"] = type;
                         ret[idx]["secondary_addr"] = addr;
                         ret[idx]["secondary_path"] = path;
-                    if type == "fc":
+                    if type == "fcp":
                         addr = stg.split("://")[1]
                         path = "/"
                         ret[idx]["secondary_type"] = type;
