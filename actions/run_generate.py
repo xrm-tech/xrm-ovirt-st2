@@ -32,7 +32,8 @@ class RunGenerate(XRMBaseAction):
         """
         ret = []
         item = {}
-        targets = []
+        targets = {}
+        idx = 0
         for stg in primary_storages.split(";"):
             try:
                 fields = stg.split("://")
@@ -52,7 +53,7 @@ class RunGenerate(XRMBaseAction):
                     item["primary_addr"] = addr[0]
                     item["primary_port"] = addr[1]
                     vol = fields[2]
-                    targets.append(vol)
+                    targets[idx] = vol
                 elif type == "nfs":
                     # nfs://addr:/path
                     addr = fields[0]
@@ -63,7 +64,8 @@ class RunGenerate(XRMBaseAction):
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
                     return []
                 
-                ret.append(item)                
+                ret.append(item)
+                idx+=1               
             except Exception as e:
                 print("Exception in parse_storage_to_json: (" + format_exception_loc() + ") " + str(e))
         idx = 0
