@@ -32,8 +32,8 @@ class RunGenerate(XRMBaseAction):
                 fields = fields[1].split(":/")
                 #print (type +" "+ addr+" "+path)
                 item={"primary_type":type}
-                if type == "fc":
-                    # fc://id
+                if type == "fcp":
+                    # fcp://id
                     addr = fields[0]
                     item["primary_id"] = addr
                 elif type == "iscsi":
@@ -62,8 +62,8 @@ class RunGenerate(XRMBaseAction):
                 fields = stg.split("://")
                 type= fields[0]
                 fields = fields[1].split(":/")
-                if type == "fc":
-                    # fc://id
+                if type == "fcp":
+                    # fcp://id
                     addr = fields[0]
                     item["secondary_id"] = addr
                 elif type == "iscsi":
