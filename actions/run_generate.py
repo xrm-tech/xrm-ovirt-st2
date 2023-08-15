@@ -11,6 +11,14 @@ __all__ = [
 ]
 
 
+def format_exception_loc():
+    _, _, tb = sys.exc_info()
+    f = tb.tb_frame
+    lineno = tb.tb_lineno
+    filename = f.f_code.co_filename
+    return "{}:{}".format(os.path.basename(filename), lineno)
+
+
 class RunGenerate(XRMBaseAction):
 
     def parse_storage_to_json(self,primary_storages,secondary_storages):
@@ -55,7 +63,7 @@ class RunGenerate(XRMBaseAction):
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
                     return []                 
             except Exception as e:
-                print("Exception in parse_storage_to_json: " + str(e))
+                print("Exception in parse_storage_to_json: (" + format_exception_loc() + ") " str(e))
         idx = 0
         for stg in secondary_storages.split(";"):
             try:
