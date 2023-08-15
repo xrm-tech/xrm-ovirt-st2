@@ -63,7 +63,7 @@ class RunGenerate(XRMBaseAction):
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
                     return []                 
             except Exception as e:
-                print("Exception in parse_storage_to_json: (" + format_exception_loc() + ") " str(e))
+                print("Exception in parse_storage_to_json: (" + format_exception_loc() + ") " + str(e))
         idx = 0
         for stg in secondary_storages.split(";"):
             try:
@@ -94,7 +94,7 @@ class RunGenerate(XRMBaseAction):
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
                     return []   
             except Exception as e:
-                print("Exception in parse_storage_to_json: " + str(e))
+                print("Exception in parse_storage_to_json: (" + format_exception_loc() + ") " + str(e))
             idx+=1
         print (ret)
         return ret
