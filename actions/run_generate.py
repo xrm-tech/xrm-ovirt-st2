@@ -24,19 +24,33 @@ class RunGenerate(XRMBaseAction):
         """
         ret = []
         item = {}
+        targets = []
         for stg in primary_storages.split(";"):
             try:
-                type= stg.split("://")[0]
-                if (type == "fcp" or type == "nfs"):
-                    if type == "nfs":
-                        addr = stg.split("://")[1].split(":")[0]
-                        path = "/"+stg.split(":/")[2].split("/")[0]
-                        item={"primary_type":type,"primary_addr":addr,"primary_path":path}
-                    if type == "fcp":
-                        addr = stg.split("://")[1]
-                        path = "/";
-                        item={"primary_type":type,"primary_addr":addr,"primary_path":path}
-                    ret.append(item)
+                fields = stg.split("://")
+                type= fields[0]
+                fields = fields[1].split(":/")
+                #print (type +" "+ addr+" "+path)
+                item={"primary_type":type}
+                if type == "fc":
+                    # fc://id
+                    addr = fields[0]
+                    item["primary_id"] = addr
+                elif type == "iscsi":
+                    # fc://id:/addr:port:/iqn:name
+                    id = fields[0]
+                    item["primary_id"] = id
+                    addr = fields[1].split(":")
+                    item["primary_addr"] = addr[0]
+                    item["primary_port"] = addr[1]
+                    vol = fields[2]
+                    targets.append(vol)
+                elif type == "nfs":
+                    # nfs://addr:/path
+                    addr = fields[0]
+                    path = "/"+fields[1]
+                    item["primary_addr"] = addr
+                    item["primary_path"] = path
                 else:
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
                     return []                 
@@ -45,21 +59,29 @@ class RunGenerate(XRMBaseAction):
         idx = 0
         for stg in secondary_storages.split(";"):
             try:
-                type= stg.split("://")[0]
-                if (type == "fcp" or type == "nfs"): 
-                    if type == "nfs":
-                        addr = stg.split("://")[1].split(":")[0]
-                        path = "/"+stg.split(":/")[2].split("/")[0]
+                fields = stg.split("://")
+                type= fields[0]
+                fields = fields[1].split(":/")
+                if type == "fc":
+                    # fc://id
+                    addr = fields[0]
+                    item["secondary_id"] = addr
+                elif type == "iscsi":
+                    # fc://id:/addr:port:/iqn:name
+                    id = fields[0]
+                    item["secondary_id"] = id
+                    addr = fields[1].split(":")
+                    item["secondary_addr"] = addr[0]
+                    item["secondary_port"] = addr[1]
+                    vol = fields[2]
+                    item["targets"] = {targets[idx]: vol}
+                elif type == "nfs":
+                        # nfs://addr:/path
+                        addr = fields[0]
+                        path = "/"+fields[1]
                         #print (str(idx)+" "+type +" "+ addr+" "+path)
-                        ret[idx]["secondary_type"] = type;
-                        ret[idx]["secondary_addr"] = addr;
-                        ret[idx]["secondary_path"] = path;
-                    if type == "fcp":
-                        addr = stg.split("://")[1]
-                        path = "/"
-                        ret[idx]["secondary_type"] = type;
-                        ret[idx]["secondary_addr"] = addr;
-                        ret[idx]["secondary_path"] = path;
+                        ret[idx]["secondary_addr"] = addr
+                        ret[idx]["secondary_path"] = path
                 else:
                     print("Exception in parse_storage_to_json: Type not supported:" + type)
                     return []   
