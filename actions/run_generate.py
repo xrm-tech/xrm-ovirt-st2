@@ -73,6 +73,7 @@ class RunGenerate(XRMBaseAction):
             try:
                 fields = stg.split("://")
                 type= fields[0]
+                item["secondary_type"] = type
                 fields = fields[1].split(":/")
                 if type == "fcp":
                     # fcp://id
