@@ -73,19 +73,19 @@ class RunGenerate(XRMBaseAction):
             try:
                 fields = stg.split("://")
                 type= fields[0]
-                item["secondary_type"] = type
+                ret[idx]["secondary_type"] = type
                 fields = fields[1].split(":/")
                 if type == "fcp":
                     # fcp://id
                     addr = fields[0]
-                    item["secondary_id"] = addr
+                    ret[idx]["secondary_id"] = addr
                 elif type == "iscsi":
                     # iscsi://id:/addr:port:/iqn:name
                     id = fields[0]
-                    item["secondary_id"] = id
+                    ret[idx]["secondary_id"] = id
                     addr = fields[1].split(":")
-                    item["secondary_addr"] = addr[0]
-                    item["secondary_port"] = addr[1]
+                    ret[idx]["secondary_addr"] = addr[0]
+                    ret[idx]["secondary_port"] = addr[1]
                     vol = fields[2]
                     item["targets"] = {targets[idx]: vol}
                 elif type == "nfs":
