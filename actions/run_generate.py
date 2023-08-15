@@ -37,7 +37,7 @@ class RunGenerate(XRMBaseAction):
                     addr = fields[0]
                     item["primary_id"] = addr
                 elif type == "iscsi":
-                    # fc://id:/addr:port:/iqn:name
+                    # iscsi://id:/addr:port:/iqn:name
                     id = fields[0]
                     item["primary_id"] = id
                     addr = fields[1].split(":")
@@ -67,7 +67,7 @@ class RunGenerate(XRMBaseAction):
                     addr = fields[0]
                     item["secondary_id"] = addr
                 elif type == "iscsi":
-                    # fc://id:/addr:port:/iqn:name
+                    # iscsi://id:/addr:port:/iqn:name
                     id = fields[0]
                     item["secondary_id"] = id
                     addr = fields[1].split(":")
