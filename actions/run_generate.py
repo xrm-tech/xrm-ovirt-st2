@@ -112,8 +112,10 @@ class RunGenerate(XRMBaseAction):
                 "site_secondary_url": self.config['04_site_secondary_url'],\
                 "site_secondary_username": self.config['05_site_secondary_username'], \
                 "site_secondary_password": self.config['06_site_secondary_password']}
-        storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])      
-        data["storage_domains"]=storage_data
+        storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])
+        additional_params_str = self.config['09_additional_params']
+        data["storage_domains"] = storage_data
+        data["additional_params"] = additional_params_str
         print (data)
         req = self.session.post(address+plan_name, json=data)
         print("status", req.status_code)
