@@ -10,8 +10,3 @@
       description: "DR Plan name"
       required: true
       default: "test"
-    address:
-      type: "string"
-      description: "address to connect to XRM controller"
-      required: false
-      default: "{{config_context.sys_controller_address}}/failback/"

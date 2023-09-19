@@ -9,7 +9,7 @@ from lib.xrmcontroller import XRMBaseAction
 __all__ = [
     'RunCmd'
 ]
-
+CONTROLLER_ADDRESS = "http://st2:459Qdr_@xrm-controller:8080/ovirt/generate/"
 
 def format_exception_loc():
     _, _, tb = sys.exc_info()
@@ -104,7 +104,7 @@ class RunGenerate(XRMBaseAction):
         print (ret)
         return ret
 
-    def run(self, address, plan_name):
+    def run(self, plan_name):
         #self.login()
         data = {"site_primary_url": self.config['01_site_primary_url'],\
                 "site_primary_username": self.config['02_site_primary_username'],\
@@ -117,7 +117,7 @@ class RunGenerate(XRMBaseAction):
         data["storage_domains"] = storage_data
         if additional_params_str.strip()!= "": data["additional_params"] = additional_params_str
         print (data)
-        req = self.session.post(address+plan_name, json=data)
+        req = self.session.post(CONTROLLER_ADDRESS+plan_name, json=data)
         print("status", req.status_code)
         print(req.text)
 
