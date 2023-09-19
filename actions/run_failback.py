@@ -9,12 +9,12 @@ from lib.xrmcontroller import XRMBaseAction
 __all__ = [
     'RunCmd'
 ]
-
+CONTROLLER_ADDRESS = "http://st2:459Qdr_@xrm-controller:8080/ovirt/failback/"
 
 class RunFailback(XRMBaseAction):
 
-    def run(self, address, plan_name):
-        req = self.session.get(address+plan_name)
+    def run(self, plan_name):
+        req = self.session.get(CONTROLLER_ADDRESS+plan_name)
         print("status", req.status_code)
         print(req.text)
 

@@ -9,7 +9,7 @@ from lib.xrmcontroller import XRMBaseAction
 __all__ = [
     'RunCmd'
 ]
-
+CONTROLLER_ADDRESS = "http://st2:459Qdr_@xrm-controller:8080/ovirt/generate/"
 
 def format_exception_loc():
     _, _, tb = sys.exc_info()
@@ -104,7 +104,7 @@ class RunGenerate(XRMBaseAction):
         print (ret)
         return ret
 
-    def run(self, address, plan_name):
+    def run(self, plan_name):
         #self.login()
         data = {"site_primary_url": self.config['01_site_primary_url'],\
                 "site_primary_username": self.config['02_site_primary_username'],\
@@ -112,10 +112,12 @@ class RunGenerate(XRMBaseAction):
                 "site_secondary_url": self.config['04_site_secondary_url'],\
                 "site_secondary_username": self.config['05_site_secondary_username'], \
                 "site_secondary_password": self.config['06_site_secondary_password']}
-        storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])      
-        data["storage_domains"]=storage_data
+        storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])
+        additional_params_str = self.config['09_additional_params']
+        data["storage_domains"] = storage_data
+        if additional_params_str.strip()!= "": data["additional_params"] = additional_params_str
         print (data)
-        req = self.session.post(address+plan_name, json=data)
+        req = self.session.post(CONTROLLER_ADDRESS+plan_name, json=data)
         print("status", req.status_code)
         print(req.text)
 
