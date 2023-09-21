@@ -1,7 +1,7 @@
 ---
   name: "Fail_Over"
   runner_type: "python-script"
-  description: "Preform disaster recovery to secondary Site"
+  description: "Perform disaster recovery to secondary Site"
   enabled: true
   entry_point: "run_failover.py"
   parameters:
