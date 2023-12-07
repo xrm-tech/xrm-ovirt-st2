@@ -104,6 +104,21 @@ class RunGenerate(XRMBaseAction):
         print (ret)
         return ret
 
+    def parse_params_to_json(self, params_str):
+        """
+        Sample output:
+
+        [
+        "modify_key=Default",
+        "delete_key=~",
+        ]
+        """
+        ret = []
+        for param in params_str.split(";"):
+            ret.append(param)
+        print (ret)
+        return ret
+    
     def run(self, plan_name):
         #self.login()
         data = {"site_primary_url": self.config['01_site_primary_url'],\
@@ -113,9 +128,11 @@ class RunGenerate(XRMBaseAction):
                 "site_secondary_username": self.config['05_site_secondary_username'], \
                 "site_secondary_password": self.config['06_site_secondary_password']}
         storage_data =  self.parse_storage_to_json(self.config['07_primary_storage'],self.config['08_secondary_storage'])
-        additional_params_str = self.config['09_additional_params']
         data["storage_domains"] = storage_data
-        if additional_params_str.strip()!= "": data["additional_params"] = additional_params_str
+
+        additional_params_str = self.config['09_additional_params'].strip()
+        if additional_params_str != "": data["additional_params"] = self.parse_params_to_json(additional_params_str)
+
         print (data)
         req = self.session.post(CONTROLLER_ADDRESS+plan_name, json=data)
         print("status", req.status_code)
