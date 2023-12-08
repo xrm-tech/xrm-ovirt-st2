@@ -46,7 +46,7 @@
     required: true
     secret: false
   09_additional_params:
-    description: "Optional parameters in JSON format"
+    description: "Optional parameters in Key1=Value1;Key2=Value2 format"
     type: "string"
     default: ""
     required: false
