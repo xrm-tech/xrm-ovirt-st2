@@ -14,7 +14,7 @@ CONTROLLER_ADDRESS = "http://st2:459Qdr_@xrm-controller:8080/ovirt/view/"
 class RunDelete(XRMBaseAction):
 
     def run(self, plan_name):
-        addr = ONTROLLER_ADDRESS
+        addr = CONTROLLER_ADDRESS
         if plan_name != "":
             addr = CONTROLLER_ADDRESS+plan_name+"/"
         req = self.session.get(addr)
