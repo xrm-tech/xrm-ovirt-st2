@@ -5,7 +5,7 @@ description : XRM oVirt pack
 keywords:
   - ovirt
   - xrm
-version: dev
+version: 0.0.1
 python_versions:
   - "3"
 author : XRM
