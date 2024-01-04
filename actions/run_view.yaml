@@ -7,6 +7,6 @@
   parameters:
     plan_name:
       type: "string"
-      description: "Specify recovery plan name to view its configuration or leave empty to show available recovery plans"
-      required: false
-      default: ""
+      description: "Specify recovery plan name to view its configuration or * to show available recovery plans"
+      required: true
+      default: "*"
