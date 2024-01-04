@@ -15,10 +15,9 @@ class RunDelete(XRMBaseAction):
 
     def run(self, plan_name):
         addr = CONTROLLER_ADDRESS
-        if plan_name != "":
+        if plan_name != "*":
             addr = CONTROLLER_ADDRESS+plan_name+"/"
         req = self.session.get(addr)
-        print("status", req.status_code)
         print(req.text)
 
         if req.status_code == 200:
