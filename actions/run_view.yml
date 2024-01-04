@@ -1,0 +1,12 @@
+---
+  name: "View"
+  runner_type: "python-script"
+  description: "View recovery plan configuration / List recovery plans"
+  enabled: true
+  entry_point: "run_view.py"
+  parameters:
+    plan_name:
+      type: "string"
+      description: "Specify recpvery plan name to view its configuration or leave empty to list available recovery plans"
+      required: false
+      default: ""
